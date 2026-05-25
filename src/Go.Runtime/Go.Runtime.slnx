@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../../benchmarks/Go.Runtime.Benchmarks/Go.Runtime.Benchmarks.csproj" Id="785c50ce-8b6d-4062-9c52-1ce9ef6e0c13" />
+  <Project Path="../../test/Go.Runtime.Tests/Go.Runtime.Tests.csproj" Id="972361f6-849c-4240-a661-a93009677505" />
+  <Project Path="Go.Runtime/Go.Runtime.csproj" />
+</Solution>
