@@ -23,9 +23,4 @@ public class MsgQueueNode<T>
         get => value;
         set => this.value = value;
     }
-
-    public MsgQueueNode<T>? Next
-    {
-        get => next;
-    }
 }
