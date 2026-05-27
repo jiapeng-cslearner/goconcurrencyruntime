@@ -11,6 +11,26 @@ namespace Go.Runtime.Concurrency;
 /// </summary>
 public class WorkService
 {
+    public class WorkGuard : IDisposable
+    {
+        private WorkService? _service;
+
+        internal WorkGuard(WorkService service)
+        {
+            _service = service;
+            _service.HoldWork();
+        }
+
+        public void Dispose()
+        {
+            var service = Interlocked.Exchange(ref _service, null);
+            if (service != null)
+            {
+                service.ReleaseWork();
+            }
+        }
+    }
+
     private readonly MsgQueue<Action> _opQueue;
     private int _workCount;             // 活跃地工作标记数（WorkGuard机制）
     private int _waitingThreads;        // 阻塞等挂起等待地物理线程数
@@ -122,4 +142,6 @@ public class WorkService
     public void Stop() => _isRunning = false;
     public void Reset() => _isRunning = true;
     public int Count => _opQueue.Count;
+
+    public WorkGuard CreateWorkGuard() => new(this);
 }
